@@ -34,7 +34,7 @@ std::map<int, Value> SSTable::load() const {
     std::map<int, Value> entries;
     ifstream file(sstbId.name());
 
-    std::string line, item, op_string, key_str, visible_str;
+    std::string line, item, op_string, key_str, visible_str,timestamp_str;
     while (std::getline(file, line))
     {
         std::vector<int> items = std::vector<int>();
@@ -51,6 +51,9 @@ std::map<int, Value> SSTable::load() const {
             v.visible = false;
         } else{
             v.visible = true;
+            std::getline(linestream, timestamp_str, ' '); // Third argument is timestamp
+            unsigned long int t = stoi(timestamp_str);
+            v.timestamp = t;
             while(std::getline(linestream, item, ' '))
             {
                 items.push_back(stoi(item));
@@ -86,6 +89,7 @@ void SSTable::save(const std::map<int, Value> &entries) {
         } else{
             file << 0 << ' ';
         }
+        file << i.second.timestamp << ' ';
         for (const auto &j : i.second.items){
             file << j<< ' ';
         }

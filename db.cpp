@@ -7,11 +7,16 @@ using namespace templatedb;
 
 Value DB::get(int key)
 {
+    Value v;
     if (table.count(key)){
-        return table[key];
+        v = table[key];
     }
-    Value result = disk.search(key);
-	return result;
+    v = disk.search(key);
+    unsigned long int t = deleteTable.getTimeInt(key);
+    if (t > v.timestamp){
+        v.visible = false;
+    }
+	return v;
 }
 
 
@@ -71,13 +76,14 @@ void DB::del(int key)
 
 void DB::del(int min_key, int max_key)
 {
-    for (auto it = table.begin(); it != table.end(); ) {
-        if ((it->first >= min_key) && (it->first <= max_key)){
-            table.erase(it++);
-        } else { 
-            ++it;
-        }
-    }
+//    for (auto it = table.begin(); it != table.end(); ) {
+//        if ((it->first >= min_key) && (it->first <= max_key)){
+//            table.erase(it++);
+//        } else {
+//            ++it;
+//        }
+//    }
+      deleteTable.del(min_key,max_key);
 }
 
 

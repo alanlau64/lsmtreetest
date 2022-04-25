@@ -11,6 +11,7 @@
 #include "DiskStorage.hpp"
 #include "operation.hpp"
 #include "Value.hpp"
+#include "DeleteTable.h"
 
 namespace templatedb
 {
@@ -53,6 +54,7 @@ private:
     int min_key;
     int max_key;
     bool write_to_file();
+    DeleteTable deleteTable;
 };
 
 }   // namespace templatedb

@@ -70,7 +70,7 @@ int SSTable::getSpace() const {
 }
 
 void SSTable::remove() const {
-    std::__fs::filesystem::remove(std::__fs::filesystem::path(sstbId.name()));
+    std::filesystem::remove(std::filesystem::path(sstbId.name()));
 }
 
 uint64_t SSTable::number() const {

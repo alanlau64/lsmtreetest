@@ -8,7 +8,7 @@
 DiskStorage::DiskStorage() : DiskStorage("./diskdata") {}
 
 DiskStorage::DiskStorage(const std::string &dir): dir(dir), level0(dir + Option::Z_NAME) {
-    if (std::__fs::filesystem::exists(std::__fs::filesystem::path(dir + "/meta"))) {
+    if (std::filesystem::exists(std::filesystem::path(dir + "/meta"))) {
         std::ifstream ifs(dir + "/meta", std::ios::binary);
         ifs.read((char*) &no, sizeof(uint64_t));
         ifs.close();

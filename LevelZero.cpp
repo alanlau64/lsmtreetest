@@ -7,8 +7,8 @@
 #include <iostream>
 
 LevelZero::LevelZero(const std::string &dir): dir(dir){
-    if (!std::__fs::filesystem::exists(std::__fs::filesystem::path(dir))) {
-        std::__fs::filesystem::create_directories(std::__fs::filesystem::path(dir));
+    if (!std::filesystem::exists(std::filesystem::path(dir))) {
+        std::filesystem::create_directories(std::filesystem::path(dir));
         size = 0;
         byteCnt = 0;
         save();
